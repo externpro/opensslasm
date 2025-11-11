@@ -35,6 +35,7 @@ if(NOT EXISTS ${nodeAsmDir})
   message(FATAL_ERROR "directory ${nodeAsmDir} does not exist: update node repo?")
 endif()
 foreach(d
+  archs/linux-aarch64/*.s
   archs/linux-x86_64/*.s
   archs/VC-WIN64A/*.asm
   )
