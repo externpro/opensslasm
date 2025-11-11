@@ -1,4 +1,3 @@
-# cmake -P copyfromnode.cmake
 # Function to extract OpenSSL version from opensslv.h
 function(extractOpensslVersion opensslv_h version_var)
   file(STRINGS ${opensslv_h} version_line
@@ -14,7 +13,7 @@ endfunction()
 set(opensslRootDir ${CMAKE_CURRENT_LIST_DIR}/..)
 set(opensslVerFile include/openssl/opensslv.h)
 set(mainOpensslHeader ${opensslRootDir}/${opensslVerFile})
-set(nodeOpensslDir ${opensslRootDir}/../node/deps/openssl)
+set(nodeOpensslDir ${node_SOURCE_DIR}/deps/openssl)
 set(nodeOpensslHeader ${nodeOpensslDir}/openssl/${opensslVerFile})
 set(nodeAsmDir ${nodeOpensslDir}/config)
 if(NOT EXISTS ${nodeOpensslHeader})
