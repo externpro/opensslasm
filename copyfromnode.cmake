@@ -33,16 +33,22 @@ endif()
 if(NOT EXISTS ${nodeAsmDir})
   message(FATAL_ERROR "directory ${nodeAsmDir} does not exist: update node repo?")
 endif()
-foreach(d
-  archs/darwin64-arm64-cc/*.s
-  archs/linux-aarch64/*.s
-  archs/linux-x86_64/*.s
-  archs/VC-WIN64A/*.asm
-  )
-  file(GLOB_RECURSE files RELATIVE ${nodeAsmDir} ${nodeAsmDir}/${d})
-  foreach(f ${files})
-    execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different ${nodeAsmDir}/${f} ${f}
-      WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-      )
+if(NOT WIN32)
+  # git checkout of node repo on windows may have CRLF line endings
+  # and copy_if_different will cause an unwanted dirty repo
+  # NOTE: I don't develop on Windows, so this catch to update the
+  # opensslasm repo will happen as I update the openssl and node
+  # repos to newer releases on an OS where I do develop
+  foreach(d
+    archs/darwin64-arm64-cc/*.s
+    archs/linux-aarch64/*.s
+    archs/linux-x86_64/*.s
+    )
+    file(GLOB_RECURSE files RELATIVE ${nodeAsmDir} ${nodeAsmDir}/${d})
+    foreach(f ${files})
+      execute_process(COMMAND ${CMAKE_COMMAND} -E copy_if_different ${nodeAsmDir}/${f} ${f}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+        )
+    endforeach()
   endforeach()
-endforeach()
+endif()
