@@ -23,6 +23,7 @@ CMakeLists.txt text eol=lf
 *.proto text eol=lf
 *.rc text eol=lf
 *.rch text eol=lf
+*.S text eol=lf
 *.s text eol=lf
 *.sh text eol=lf
 *.svg text eol=lf
